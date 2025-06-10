@@ -4,94 +4,118 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Masjid e Aaisha Qadeem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/adhan@4.3.1/dist/adhan.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1a7d52; /* Rich green */
-      --secondary: #d4a017; /* Gold accent */
-      --accent: #f5f0e8; /* Soft off-white */
-      --dark: #1a2e35; /* Deep teal */
+      --primary: #2c7a6d; /* Teal-green */
+      --secondary: #e8b923; /* Gold */
+      --background: #f9f9f9; /* Clean white background */
+      --dark: #1a2e35; /* Deep teal for text */
+      --light: #ffffff; /* White for cards */
+      --shadow: rgba(0, 0, 0, 0.1);
     }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
     body {
-      font-family: 'Cairo', sans-serif;
-      background: var(--accent);
+      font-family: 'Poppins', sans-serif;
+      background: var(--background);
       color: var(--dark);
       line-height: 1.6;
+      overflow-x: hidden;
     }
     header {
       position: relative;
-      background: url('masjid-bg.jpg') center/cover no-repeat;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       color: white;
+      background: url('masjid-bg.jpg') center/cover no-repeat;
+      animation: fadeIn 2s ease-in-out;
     }
     header::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(26, 125, 82, 0.7), rgba(26, 45, 53, 0.8));
+      background: linear-gradient(135deg, rgba(44, 122, 109, 0.8), rgba(26, 46, 53, 0.6));
       z-index: 1;
     }
     .header-content {
       z-index: 2;
       padding: 20px;
+      animation: slideUp 1s ease-out 0.5s forwards;
+      opacity: 0;
     }
     h1 {
-      font-family: 'Amiri', serif;
-      font-size: 3.5rem;
-      margin-bottom: 15px;
+      font-family: 'Lora', serif;
+      font-size: 4rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
     }
     .verse {
-      font-family: 'Amiri', serif;
-      font-size: 1.5rem;
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
       max-width: 800px;
       margin: 0 auto 30px;
+      font-style: italic;
     }
     .cta-buttons a {
       background: var(--secondary);
       color: var(--dark);
-      padding: 12px 25px;
+      padding: 15px 30px;
       margin: 10px;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: 700;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
     .cta-buttons a:hover {
       background: var(--primary);
       color: white;
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
     .section {
       padding: 80px 20px;
       position: relative;
       overflow: hidden;
+      animation: fadeIn 1s ease-in-out;
     }
     .section h2 {
-      font-family: 'Amiri', serif;
-      font-size: 2.5rem;
+      font-family: 'Lora', serif;
+      font-size: 2.8rem;
       color: var(--primary);
       margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
+    .section h2::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: var(--secondary);
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
     }
     .prayer-heading {
       display: inline;
     }
     .section::after {
       content: "\FDFD"; /* Bismillah Unicode */
-      font-family: 'Amiri', serif;
-      font-size: 16rem;
+      font-family: 'Lora', serif;
+      font-size: 20rem;
       position: absolute;
-      opacity: 0.08;
+      opacity: 0.05;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -99,16 +123,22 @@
       pointer-events: none;
       z-index: 0;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      animation: watermarkFade 8s ease-in-out infinite;
+    }
+    @keyframes watermarkFade {
+      0%, 100% { opacity: 0.05; }
+      50% { opacity: 0.1; }
     }
     .prayer-container {
       display: flex;
-      gap: 15px;
+      gap: 20px;
       overflow-x: auto;
       padding: 20px;
       max-width: 100%;
       scroll-behavior: smooth;
       scrollbar-width: thin;
-      scrollbar-color: var(--primary) var(--accent);
+      scrollbar-color: var(--primary) var(--background);
+      justify-content: center;
     }
     .prayer-container::-webkit-scrollbar {
       height: 8px;
@@ -118,43 +148,52 @@
       border-radius: 4px;
     }
     .prayer-container::-webkit-scrollbar-track {
-      background: var(--accent);
+      background: var(--background);
     }
     .prayer-card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      min-width: 200px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px var(--shadow);
+      min-width: 220px;
       text-align: center;
-      border-left: 4px solid var(--primary);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
       position: relative;
       z-index: 1;
     }
+    .prayer-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      border-color: var(--secondary);
+    }
     .prayer-card h3 {
-      font-family: 'Amiri', serif;
-      font-size: 1.5rem;
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
       color: var(--primary);
       margin-bottom: 10px;
     }
     .prayer-card p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--dark);
+      font-weight: 500;
     }
     .info-card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
+      background: var(--light);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px var(--shadow);
+      max-width: 600px;
       margin: 20px auto;
-      border-left: 4px solid var(--primary);
+      border: 1px solid rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease;
       position: relative;
       z-index: 1;
     }
     .info-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
     }
     .info-card p {
       font-size: 1.1rem;
@@ -163,31 +202,32 @@
     }
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
       max-width: 1200px;
       margin: 40px auto;
     }
     .gallery-grid img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px var(--shadow);
+      transition: all 0.3s ease;
       position: relative;
       z-index: 1;
     }
     .gallery-grid img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
     footer {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), #1a5c4e);
       color: white;
-      padding: 40px 20px;
+      padding: 50px 20px;
       text-align: center;
       font-size: 1rem;
+      position: relative;
     }
     footer p {
       margin: 8px 0;
@@ -200,62 +240,100 @@
     footer a:hover {
       color: white;
     }
+    .social-icons {
+      margin-top: 20px;
+    }
+    .social-icons a {
+      margin: 0 10px;
+      font-size: 1.5rem;
+      color: white;
+      transition: color 0.3s ease;
+    }
+    .social-icons a:hover {
+      color: var(--secondary);
+    }
     .prayer-form {
-      display: none; /* Hidden by default */
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
+      display: none;
+      background: var(--light);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px var(--shadow);
+      max-width: 600px;
       margin: 20px auto;
       position: relative;
       z-index: 1;
     }
+    .prayer-form h3 {
+      font-family: 'Lora', serif;
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-align: center;
+    }
     .prayer-form input {
-      padding: 8px;
-      margin: 5px 0;
+      padding: 10px;
+      margin: 8px 0;
       width: 100%;
       border: 1px solid var(--primary);
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1rem;
     }
     .prayer-form button {
       background: var(--primary);
       color: white;
-      padding: 10px 20px;
+      padding: 12px 25px;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.3s ease;
+      margin-top: 15px;
+      width: 100%;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
     }
     .prayer-form button:hover {
       background: var(--secondary);
       color: var(--dark);
+      transform: translateY(-2px);
     }
     .time-counter {
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
       padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 6px 15px var(--shadow);
       max-width: 300px;
       margin: 20px auto;
       text-align: center;
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--primary);
       position: relative;
       z-index: 1;
     }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     @media (max-width: 768px) {
-      h1 { font-size: 2.5rem; }
-      .verse { font-size: 1.2rem; }
+      h1 { font-size: 2.8rem; }
+      .verse { font-size: 1.3rem; }
       .section { padding: 50px 15px; }
-      .section h2 { font-size: 2rem; }
-      .prayer-card { min-width: 160px; }
-      .prayer-card h3 { font-size: 1.3rem; }
-      .prayer-card p { font-size: 1rem; }
-      .section::after { font-size: 10rem; }
-      .time-counter { font-size: 1.2rem; }
+      .section h2 { font-size: 2.2rem; }
+      .prayer-card { min-width: 180px; }
+      .prayer-card h3 { font-size: 1.4rem; }
+      .prayer-card p { font-size: 1.1rem; }
+      .section::after { font-size: 12rem; }
+      .time-counter { font-size: 1.3rem; }
+      .gallery-grid img { height: 180px; }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 2.2rem; }
+      .verse { font-size: 1.1rem; }
+      .cta-buttons a { padding: 10px 20px; font-size: 1rem; }
+      .section::after { font-size: 8rem; }
     }
   </style>
 </head>
@@ -275,26 +353,30 @@
   <section id="prayer" class="section">
     <h2>Today's <span class="prayer-heading"><span onclick="showPrayerForm()">Prayer</span></span> Times</h2>
     <div class="time-counter" id="istTime">Current IST Time: Calculating...</div>
-    <div class="prayer-container">
+    <div class="prayer-container" id="prayerContainer">
       <div class="prayer-card" id="fajr">
         <h3>Fajr</h3>
-        <p>Calculating...</p>
+        <p>4:15 AM</p>
       </div>
       <div class="prayer-card" id="dhuhr">
         <h3>Dhuhr</h3>
-        <p>Calculating...</p>
+        <p>1:00 PM</p>
       </div>
       <div class="prayer-card" id="asr">
         <h3>Asr</h3>
-        <p>Calculating...</p>
+        <p>5:15 PM</p>
       </div>
       <div class="prayer-card" id="maghrib">
         <h3>Maghrib</h3>
-        <p>Calculating...</p>
+        <p>7:10 PM</p>
       </div>
       <div class="prayer-card" id="isha">
         <h3>Isha</h3>
-        <p>Calculating...</p>
+        <p>8:30 PM</p>
+      </div>
+      <div class="prayer-card" id="jumuah" style="display: none;">
+        <h3>Jumu'ah</h3>
+        <p>1:30 PM</p>
       </div>
     </div>
     <div class="prayer-form" id="prayerForm">
@@ -305,6 +387,7 @@
       <input type="text" id="asrTime" placeholder="Asr (e.g., 5:15 PM)">
       <input type="text" id="maghribTime" placeholder="Maghrib (e.g., 7:10 PM)">
       <input type="text" id="ishaTime" placeholder="Isha (e.g., 8:30 PM)">
+      <input type="text" id="jumuahTime" placeholder="Jumu'ah (e.g., 1:30 PM)">
       <button onclick="updateManualPrayerTimes()">Submit</button>
     </div>
   </section>
@@ -342,29 +425,26 @@
     <p>Phone: <a href="tel:+919876543210">+91 98765 43210</a></p>
     <p>Email: <a href="mailto:masjideaq@islamicorg.com">masjideaq@islamicorg.com</a></p>
     <p>Developed by Saood for the sake of Allah ﷻ</p>
+    <div class="social-icons">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
   </footer>
 
   <script>
-    // Initial fallback prayer times
+    // Initial prayer times
     let prayerTimes = {
       fajr: "4:15 AM",
       dhuhr: "1:00 PM",
       asr: "5:15 PM",
       maghrib: "7:10 PM",
-      isha: "8:30 PM"
+      isha: "8:30 PM",
+      jumuah: "1:30 PM"
     };
 
-    // Password for manual updates (simple client-side, not secure for production)
-    const correctPassword = "masjid123"; // Change this to your desired password
-
-    // Function to format time to 12-hour with AM/PM
-    function formatTime(date) {
-      let hours = date.getHours();
-      let minutes = String(date.getMinutes()).padStart(2, '0');
-      let period = hours >= 12 ? 'PM' : 'AM';
-      hours = hours % 12 || 12; // Convert 0 to 12 for 12-hour format
-      return `${hours}:${minutes} ${period}`;
-    }
+    // Password for manual updates
+    const correctPassword = "saoodbhai";
 
     // Function to update IST time counter
     function updateISTTime() {
@@ -377,57 +457,22 @@
       document.getElementById('istTime').textContent = `Current IST Time: ${hours}:${minutes}:${seconds}`;
     }
 
-    // Calculate prayer times using Adhan-JS
-    function calculatePrayerTimes(coords) {
-      const params = adhan.CalculationMethod.MuslimWorldLeague();
-      params.madhhab = adhan.Madhab.Hanafi; // Adjust for your region/preference
-      const date = new Date();
-      const prayer = new adhan.PrayerTimes(coords, date, params);
-      
-      // Update prayerTimes object
-      prayerTimes = {
-        fajr: formatTime(prayer.fajr),
-        dhuhr: formatTime(prayer.dhuhr),
-        asr: formatTime(prayer.asr),
-        maghrib: formatTime(prayer.maghrib),
-        isha: formatTime(prayer.isha)
-      };
-
-      // Update display
-      document.getElementById('fajr').querySelector('p').textContent = prayerTimes.fajr;
-      document.getElementById('dhuhr').querySelector('p').textContent = prayerTimes.dhuhr;
-      document.getElementById('asr').querySelector('p').textContent = prayerTimes.asr;
-      document.getElementById('maghrib').querySelector('p').textContent = prayerTimes.maghrib;
-      document.getElementById('isha').querySelector('p').textContent = prayerTimes.isha;
-    }
-
-    // Get user location and calculate prayer times
-    function updatePrayerTimes() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            const coords = new adhan.Coordinates(position.coords.latitude, position.coords.longitude);
-            calculatePrayerTimes(coords);
-          },
-          error => {
-            console.log("Geolocation failed, using fallback for Ankleshwar: ", error);
-            // Fallback to Ankleshwar, Gujarat coordinates
-            const coords = new adhan.Coordinates(21.6264, 72.9972);
-            calculatePrayerTimes(coords);
-          }
-        );
+    // Show Jumu'ah prayer card on Fridays
+    function showJumuahPrayer() {
+      const today = new Date();
+      const dayOfWeek = today.getDay(); // 0 = Sunday, 5 = Friday
+      const jumuahCard = document.getElementById('jumuah');
+      if (dayOfWeek === 5) { // Friday
+        jumuahCard.style.display = 'block';
       } else {
-        console.log("Geolocation not supported, using fallback for Ankleshwar.");
-        // Fallback to Ankleshwar, Gujarat coordinates
-        const coords = new adhan.Coordinates(21.6264, 72.9972);
-        calculatePrayerTimes(coords);
+        jumuahCard.style.display = 'none';
       }
     }
 
     // Show secret prayer time edit form on click
     function showPrayerForm() {
       const form = document.getElementById('prayerForm');
-      form.style.display = form.style.display === 'block' ? 'none' : 'block'; // Toggle visibility
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
     }
 
     // Manual update of prayer times with password
@@ -443,7 +488,8 @@
         dhuhr: document.getElementById('dhuhrTime').value || prayerTimes.dhuhr,
         asr: document.getElementById('asrTime').value || prayerTimes.asr,
         maghrib: document.getElementById('maghribTime').value || prayerTimes.maghrib,
-        isha: document.getElementById('ishaTime').value || prayerTimes.isha
+        isha: document.getElementById('ishaTime').value || prayerTimes.isha,
+        jumuah: document.getElementById('jumuahTime').value || prayerTimes.jumuah
       };
 
       // Basic validation for time format (e.g., "4:15 AM")
@@ -462,6 +508,7 @@
       document.getElementById('asr').querySelector('p').textContent = prayerTimes.asr;
       document.getElementById('maghrib').querySelector('p').textContent = prayerTimes.maghrib;
       document.getElementById('isha').querySelector('p').textContent = prayerTimes.isha;
+      document.getElementById('jumuah').querySelector('p').textContent = prayerTimes.jumuah;
 
       // Clear form and hide it
       document.getElementById('password').value = '';
@@ -470,6 +517,7 @@
       document.getElementById('asrTime').value = '';
       document.getElementById('maghribTime').value = '';
       document.getElementById('ishaTime').value = '';
+      document.getElementById('jumuahTime').value = '';
       document.getElementById('prayerForm').style.display = 'none';
 
       alert("Prayer times updated successfully!");
@@ -488,20 +536,12 @@
       });
     });
 
-    // Update prayer times and IST counter on load
-    updatePrayerTimes();
+    // Update IST counter on load and every second
     updateISTTime();
-
-    // Update IST counter every second
     setInterval(updateISTTime, 1000);
 
-    // Update prayer times every day at midnight
-    setInterval(() => {
-      const now = new Date();
-      if (now.getHours() === 0 && now.getMinutes() === 0) {
-        updatePrayerTimes();
-      }
-    }, 60 * 1000);
+    // Show Jumu'ah prayer card on Fridays
+    showJumuahPrayer();
 
     console.log("Masjid e Aaisha Qadeem website loaded.");
   </script>
