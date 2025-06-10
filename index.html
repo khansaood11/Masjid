@@ -457,17 +457,7 @@
       document.getElementById('istTime').textContent = `Current IST Time: ${hours}:${minutes}:${seconds}`;
     }
 
-    // Show Jumu'ah prayer card on Fridays
-    function showJumuahPrayer() {
-      const today = new Date();
-      const dayOfWeek = today.getDay(); // 0 = Sunday, 5 = Friday
-      const jumuahCard = document.getElementById('jumuah');
-      if (dayOfWeek === 5) { // Friday
-        jumuahCard.style.display = 'block';
-      } else {
-        jumuahCard.style.display = 'none';
-      }
-    }
+   
 
     // Show secret prayer time edit form on click
     function showPrayerForm() {
