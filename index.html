@@ -1,1115 +1,509 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darul Uloom Markaz-e-Islami</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="manifest" href="manifest.json">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Amiri:wght@400;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #FFFFFF;
-            color: #000000;
-            overflow-x: hidden;
-            padding-top: 90px;
-        }
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(102, 102, 102, 0.5);
-            text-align: center;
-            padding: 10px 0;
-            z-index: 1000;
-            animation: fadeIn 1s ease-in;
-        }
-        .header h1 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #006633;
-            font-family: 'Amiri', serif;
-            margin-bottom: 8px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding: 0 10px;
-        }
-        .header .urdu {
-            font-size: 18px;
-            color: #006633;
-            font-family: 'Amiri', serif;
-            margin-bottom: 8px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding: 0 10px;
-        }
-        .header-nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .header-nav a {
-            color: #006633;
-            text-decoration: none;
-            font-size: 20px;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-        }
-        .header-nav a.active, .header-nav a:hover {
-            color: #FFB300;
-        }
-        .header-nav a:hover {
-            color: #0033A0;
-        }
-        /* Page Container */
-        .page {
-            display: none;
-            padding: 20px 15px;
-            min-height: 100vh;
-            animation: fadeIn 0.5s ease-in;
-        }
-        #home.page {
-            padding-top: 30px;
-        }
-        #admission.page, #courses.page, #donation.page, #contact.page, #gallery.page {
-            padding-top: 100px;
-        }
-        .page.active {
-            display: block;
-        }
-        /* Hero Carousel */
-        .hero {
-            height: 40vh;
-            position: relative;
-            overflow: hidden;
-            animation: fadeIn 1.5s ease-in;
-            padding-top: 20px; /* Added to move Hero down */
-        }
-        .carousel {
-            display: flex;
-            width: 300%;
-            height: 100%;
-            transition: transform 0.5s ease;
-        }
-        .carousel-slide {
-            width: 33.33%;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #FFFFFF;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-            padding: 10px;
-        }
-        .carousel-slide h2 {
-            font-size: 24px;
-            margin-bottom: 5px;
-            font-family: 'Amiri', serif;
-        }
-        .carousel-slide .urdu {
-            font-size: 14px;
-            margin-bottom: 10px;
-            font-family: 'Amiri', serif;
-        }
-        .carousel-slide p {
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-        .carousel-slide .btn {
-            background: #006633;
-            color: #FFFFFF;
-            padding: 8px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 12px;
-            transition: all 0.3s ease;
-        }
-        .carousel-slide .btn:hover {
-            transform: scale(1.1);
-            background: #003300;
-        }
-        .carousel-controls {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-        }
-        .carousel-controls button {
-            background: rgba(255, 255, 255, 0.3);
-            border: none;
-            padding: 6px;
-            margin: 0 5px;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: background 0.3s ease;
-        }
-        .carousel-controls button:hover {
-            background: #006633;
-        }
-        /* Notice Board */
-        .notice-board {
-            padding: 40px 15px;
-            background: #FFFFFF;
-            animation: slideUp 1s ease-out;
-            margin-bottom: 30px;
-        }
-        .notice-board h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #006633;
-            position: relative;
-        }
-        .notice-board h2::before {
-            content: "نوٹس بورڈ";
-            display: block;
-            font-family: 'Amiri', serif;
-            font-size: 20px;
-            color: #006633;
-            margin-bottom: 5px;
-        }
-        .notice-board h2::after {
-            content: "નોટિસ બોર્ડ";
-            display: block;
-            font-family: 'Poppins', sans-serif;
-            font-size: 20px;
-            color: #006633;
-            margin-top: 5px;
-        }
-        .notices {
-            max-width: 90%;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 15px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-        }
-        .notices p {
-            font-size: 16px;
-            color: #666666;
-            margin-bottom: 10px;
-        }
-        .notices .urdu {
-            font-family: 'Amiri', serif;
-            direction: rtl;
-            text-align: right;
-        }
-        .notices .gujarati {
-            font-family: 'Poppins', sans-serif;
-        }
-        /* About (Home and About Page) */
-        .about {
-            padding: 40px 15px;
-            background: #FFFFFF;
-            animation: slideUp 1s ease-out;
-            margin-bottom: 30px;
-        }
-        #about .about {
-            padding-top: 60px; /* Added to move About section down on About page */
-        }
-        .about h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #006633;
-        }
-        .about p {
-            max-width: 90%;
-            margin: 0 auto 15px;
-            font-size: 16px;
-            line-height: 1.6;
-            color: #666666;
-        }
-        .about .btn {
-            display: block;
-            width: 160px;
-            margin: 20px auto;
-            background: #006633;
-            color: #FFFFFF;
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .about .btn:hover {
-            transform: scale(1.05);
-            background: #003300;
-        }
-        .about .content {
-            max-width: 90%;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-        }
-        .about h3 {
-            font-size: 20px;
-            color: #006633;
-            margin: 15px 0 10px;
-        }
-        /* Video Gallery */
-        .video-gallery {
-            padding: 40px 15px;
-            background: #FFFFFF;
-            animation: slideUp 1s ease-out;
-            margin-bottom: 30px;
-        }
-        .video-gallery h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #006633;
-        }
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 90%;
-            margin: 0 auto;
-        }
-        .video-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .video-card:hover {
-            transform: scale(1.05);
-        }
-        .video-card iframe {
-            width: 100%;
-            height: 150px;
-            border-radius: 10px;
-        }
-        .video-card p {
-            font-size: 14px;
-            color: #666666;
-            margin-top: 10px;
-        }
-        /* Gallery Page */
-        .gallery h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #006633;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            max-width: 90%;
-            margin: 0 auto;
-        }
-        .gallery-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-            padding: 10px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .gallery-card:hover {
-            transform: scale(1.05);
-        }
-        .gallery-card img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        .gallery-card p {
-            font-size: 14px;
-            color: #666666;
-            margin-top: 10px;
-        }
-        /* Admission */
-        .admission h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #006633;
-        }
-        .admission .rules {
-            max-width: 90%;
-            margin: 0 auto 30px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 15px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-        }
-        .admission .rules h3 {
-            font-size: 20px;
-            color: #006633;
-            margin-bottom: 15px;
-        }
-        .admission .rules ul {
-            list-style-type: disc;
-            padding-left: 20px;
-            font-size: 14px;
-            color: #666666;
-        }
-        .admission .rules li {
-            margin-bottom: 10px;
-        }
-        .admission form {
-            max-width: 90%;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-        }
-        .admission label {
-            display: block;
-            margin: 8px 0 5px;
-            color: #000000;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        .admission input, .admission select, .admission textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #000000;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .admission input:focus, .admission select:focus, .admission textarea:focus {
-            transform: scale(1.02);
-            box-shadow: 0 0 8px rgba(0, 102, 51, 0.5);
-            outline: none;
-        }
-        .admission input::placeholder, .admission textarea::placeholder {
-            color: rgba(0, 0, 0, 0.7);
-        }
-        .admission button {
-            background: #006633;
-            color: #FFFFFF;
-            padding: 10px;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .admission button:hover {
-            transform: scale(1.05);
-            background: #003300;
-        }
-        /* Courses */
-        .courses h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #006633;
-        }
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 90%;
-            margin: 0 auto;
-        }
-        .course-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .course-card:hover {
-            transform: translateY(-8px);
-        }
-        .course-card h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #006633;
-        }
-        .course-card p {
-            font-size: 14px;
-            color: #666666;
-        }
-        /* Donate */
-        .donation h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #006633;
-        }
-        .donation .content {
-            max-width: 90%;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-        }
-        .donation p {
-            font-size: 16px;
-            color: #666666;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        .donation h3 {
-            font-size: 20px;
-            color: #006633;
-            margin: 20px 0 10px;
-        }
-        /* Contact */
-        .contact h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #006633;
-        }
-        .contact-details {
-            max-width: 90%;
-            margin: 0 auto 30px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 15px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-        }
-        .contact-details h3 {
-            font-size: 20px;
-            color: #006633;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .contact-details p {
-            font-size: 16px;
-            color: #666666;
-            margin-bottom: 10px;
-        }
-        .contact-details .urdu {
-            font-family: 'Amiri', serif;
-            direction: rtl;
-            text-align: right;
-        }
-        .contact-details .gujarati {
-            font-family: 'Poppins', sans-serif;
-        }
-        .contact form {
-            max-width: 90%;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(102, 102, 102, 0.3);
-        }
-        .contact label {
-            display: block;
-            margin: 8px 0 5px;
-            color: #000000;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        .contact input, .contact textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #000000;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .contact input:focus, .contact textarea:focus {
-            transform: scale(1.02);
-            box-shadow: 0 0 8px rgba(0, 102, 51, 0.5);
-            outline: none;
-        }
-        .contact input::placeholder, .contact textarea::placeholder {
-            color: rgba(0, 0, 0, 0.7);
-        }
-        .contact button {
-            background: #006633;
-            color: #FFFFFF;
-            padding: 10px;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .contact button:hover {
-            transform: scale(1.05);
-            background: #003300;
-        }
-        /* Footer */
-        .footer {
-            background: #006633;
-            padding: 20px;
-            text-align: center;
-            color: #FFFFFF;
-        }
-        .footer p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-        .footer a {
-            color: #D3D3D3;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .footer a:hover {
-            color: #FFFFFF;
-        }
-        .social-links a {
-            margin: 0 10px;
-            font-size: 20px;
-            color: #D3D3D3;
-        }
-        .social-links a:hover {
-            color: #0033A0;
-        }
-        /* Desktop Adjustments */
-        @media (min-width: 768px) {
-            body {
-                padding-top: 110px;
-            }
-            .header {
-                padding: 15px 0;
-            }
-            .header h1 {
-                font-size: 32px;
-            }
-            .header .urdu {
-                font-size: 28px;
-            }
-            .header-nav a {
-                font-size: 22px;
-                margin: 0 15px;
-            }
-            .hero {
-                height: 30vh;
-                padding-top: 20px; /* Added to move Hero down */
-            }
-            .carousel-slide h2 {
-                font-size: 36px;
-            }
-            .carousel-slide .urdu {
-                font-size: 18px;
-            }
-            .carousel-slide p {
-                font-size: 16px;
-            }
-            .carousel-slide .btn {
-                padding: 12px 25px;
-                font-size: 16px;
-            }
-            .carousel-controls button {
-                padding: 8px;
-            }
-            #home.page {
-                padding-top: 30px;
-            }
-            #admission.page, #courses.page, #donation.page, #contact.page, #gallery.page {
-                padding-top: 120px;
-            }
-            .notice-board {
-                padding: 80px 30px;
-                margin-bottom: 40px;
-            }
-            .notice-board h2 {
-                font-size: 36px;
-            }
-            .notice-board h2::before, .notice-board h2::after {
-                font-size: 24px;
-            }
-            .notices {
-                max-width: 800px;
-                padding: 30px;
-            }
-            .notices p {
-                font-size: 18px;
-            }
-            .about {
-                padding: 80px 30px;
-                margin-bottom: 40px;
-            }
-            #about .about {
-                padding-top: 100px; /* Added to move About section down on About page */
-            }
-            .about h2 {
-                font-size: 36px;
-            }
-            .about p {
-                max-width: 800px;
-                font-size: 18px;
-            }
-            .about .btn {
-                width: 200px;
-                padding: 12px;
-                font-size: 16px;
-            }
-            .about .content {
-                max-width: 800px;
-                padding: 30px;
-            }
-            .about h3 {
-                font-size: 24px;
-            }
-            .video-gallery {
-                padding: 80px 30px;
-                margin-bottom: 40px;
-            }
-            .video-gallery h2 {
-                font-size: 36px;
-            }
-            .video-grid {
-                max-width: 1200px;
-            }
-            .video-card {
-                padding: 20px;
-            }
-            .video-card iframe {
-                height: 200px;
-            }
-            .video-card p {
-                font-size: 16px;
-            }
-            .gallery h2 {
-                font-size: 36px;
-            }
-            .gallery-grid {
-                max-width: 1200px;
-            }
-            .gallery-card {
-                padding: 15px;
-            }
-            .gallery-card img {
-                height: 150px;
-            }
-            .gallery-card p {
-                font-size: 16px;
-            }
-            .admission h2, .courses h2, .donation h2, .contact h2 {
-                font-size: 36px;
-            }
-            .admission .rules, .admission form, .donation .content, .contact form {
-                max-width: 600px;
-                padding: 30px;
-            }
-            .admission .rules h3 {
-                font-size: 24px;
-            }
-            .admission .rules ul {
-                font-size: 16px;
-            }
-            .admission label, .contact label {
-                font-size: 16px;
-            }
-            .admission input, .admission select, .admission textarea,
-            .contact input, .contact textarea {
-                padding: 12px;
-                font-size: 16px;
-            }
-            .admission button, .contact button {
-                padding: 12px;
-                font-size: 16px;
-            }
-            .donation h3 {
-                font-size: 24px;
-            }
-            .donation p {
-                font-size: 18px;
-            }
-            .contact-details {
-                max-width: 600px;
-                padding: 30px;
-            }
-            .contact-details h3 {
-                font-size: 24px;
-            }
-            .contact-details p {
-                font-size: 18px;
-            }
-            .footer {
-                padding: 40px;
-            }
-            .footer p {
-                font-size: 16px;
-            }
-            .social-links a {
-                margin: 0 15px;
-                font-size: 24px;
-            }
-        }
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masjid e Aaisha Qadeem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/adhan@4.3.1/dist/adhan.min.js"></script>
+  <style>
+    :root {
+      --primary: #1a7d52; /* Rich green */
+      --secondary: #d4a017; /* Gold accent */
+      --accent: #f5f0e8; /* Soft off-white */
+      --dark: #1a2e35; /* Deep teal */
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--accent);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    header {
+      position: relative;
+      background: url('masjid-bg.jpg') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(26, 125, 82, 0.7), rgba(26, 45, 53, 0.8));
+      z-index: 1;
+    }
+    .header-content {
+      z-index: 2;
+      padding: 20px;
+    }
+    h1 {
+      font-family: 'Amiri', serif;
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+    }
+    .verse {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    .cta-buttons a {
+      background: var(--secondary);
+      color: var(--dark);
+      padding: 12px 25px;
+      margin: 10px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    .cta-buttons a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+    .section {
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .section h2 {
+      font-family: 'Amiri', serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 40px;
+    }
+    .prayer-heading {
+      display: inline;
+    }
+    .section::after {
+      content: "\FDFD"; /* Bismillah Unicode */
+      font-family: 'Amiri', serif;
+      font-size: 16rem;
+      position: absolute;
+      opacity: 0.08;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--secondary);
+      pointer-events: none;
+      z-index: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .prayer-container {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      padding: 20px;
+      max-width: 100%;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--accent);
+    }
+    .prayer-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .prayer-container::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    .prayer-container::-webkit-scrollbar-track {
+      background: var(--accent);
+    }
+    .prayer-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      min-width: 200px;
+      text-align: center;
+      border-left: 4px solid var(--primary);
+      position: relative;
+      z-index: 1;
+    }
+    .prayer-card h3 {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .prayer-card p {
+      font-size: 1.2rem;
+      color: var(--dark);
+    }
+    .info-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 20px auto;
+      border-left: 4px solid var(--primary);
+      transition: transform 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .info-card:hover {
+      transform: translateY(-5px);
+    }
+    .info-card p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+      color: var(--dark);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 40px auto;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 1rem;
+    }
+    footer p {
+      margin: 8px 0;
+    }
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: white;
+    }
+    .prayer-form {
+      display: none; /* Hidden by default */
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 20px auto;
+      position: relative;
+      z-index: 1;
+    }
+    .prayer-form input {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      border: 1px solid var(--primary);
+      border-radius: 5px;
+    }
+    .prayer-form button {
+      background: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+    .prayer-form button:hover {
+      background: var(--secondary);
+      color: var(--dark);
+    }
+    .time-counter {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      margin: 20px auto;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .verse { font-size: 1.2rem; }
+      .section { padding: 50px 15px; }
+      .section h2 { font-size: 2rem; }
+      .prayer-card { min-width: 160px; }
+      .prayer-card h3 { font-size: 1.3rem; }
+      .prayer-card p { font-size: 1rem; }
+      .section::after { font-size: 10rem; }
+      .time-counter { font-size: 1.2rem; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <h1>Darul Uloom Markaz-e-Islami Ankleshwar</h1>
-        <p class="urdu">دارالعلوم مرکزِ اسلامی، انکلیشور</p>
-        <nav class="header-nav">
-            <a href="#" onclick="showPage('home')" class="active">Home</a>
-            <a href="#" onclick="showPage('about')">About</a>
-            <a href="#" onclick="showPage('admission')">Admission</a>
-            <a href="#" onclick="showPage('courses')">Courses</a>
-            <a href="#" onclick="showPage('gallery')">Gallery</a>
-            <a href="#" onclick="showPage('donation')">Donate</a>
-            <a href="#" onclick="showPage('contact')">Contact</a>
-        </nav>
-    </header>
-
-    <!-- Pages -->
-    <div id="home" class="page active">
-        <!-- Hero Carousel -->
-        <div class="hero">
-            <div class="carousel">
-                <div class="carousel-slide" style="background-image: url('https://markazeislami.com/wp-content/uploads/2024/08/img01.jpeg');">
-                    <h2>Welcome to Markaz-e-Islami</h2>
-                    <p class="urdu">دارالعلوم مرکزِ اسلامی، انکلیشور</p>
-                    <p>Ankleshwar’s premier Islamic institute since 1984.</p>
-                    <a href="#" class="btn" onclick="showPage('admission')">Apply Now</a>
-                </div>
-                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/5gyyxByT/images-1.jpg');">
-                    <h2>Empowering Through Education</h2>
-                    <p class="urdu">مفت اسلامی تعلیم کا مرکز</p>
-                    <p>Free Islamic education for all.</p>
-                    <a href="#" class="btn" onclick="showPage('donation')">Support Us</a>
-                </div>
-                <div class="carousel-slide" style="background-image: url('https://markazeislami.com/wp-content/uploads/2024/08/Masjid-e-Ibhrahim4.jpg');">
-                    <h2>Join Our Community</h2>
-                    <p class="urdu">ہمارے ساتھ شامل ہوں</p>
-                    <p>Learn, grow, and contribute.</p>
-                    <a href="#" class="btn" onclick="showPage('contact')">Get in Touch</a>
-                </div>
-            </div>
-            <div class="carousel-controls">
-                <button onclick="moveCarousel(-1)">❮</button>
-                <button onclick="moveCarousel(1)">❯</button>
-            </div>
-        </div>
-        <!-- Notice Board -->
-        <div class="notice-board">
-            <h2>Notice Board</h2>
-            <div class="notices">
-                <p class="english">Admission Start for 2025-26 Session. Apply by June 30, 2025.</p>
-                <p class="urdu">2025-26 سیشن کے لیے داخلہ شروع۔ 30 جون 2025 تک درخواست دیں۔</p>
-                <p class="gujarati">2025-26 સત્ર માટે પ્રવેશ શરૂ. 30 જૂન, 2025 સુધી અરજી કરો。</p>
-                <p class="english">Annual Gathering on July 15, 2025.</p>
-                <p class="urdu">15 جولائی 2025 کو سالانہ اجتماع۔</p>
-                <p class="gujarati">15 જુલાઈ, 2025 ના રોજ વાર્ષિક સભા。</p>
-            </div>
-        </div>
-        <!-- About (Shortened) -->
-        <div class="about">
-            <h2>About Darul Uloom Markaz-e-Islami</h2>
-            <p>Ankleshwar Markaz-e-Islami Trust, is one of the most celebrated Islamic institutes in Gujarat, India, catering and imparting Islamic Education to the Muslim students at no cost. The foundation stone of Darul Uloom Markaz-e-Islami was laid by two distinguished and remarkable personalities of their time i.e. Maulana Raza Ahmad Ajmeri (RA) and Hazrat Maulana Muinuddin Sahab (Khalifa Hazrat Shaikhul Hadith) in 1984 A.C. corresponding to 1405 A.H.</p>
-            <a href="#" class="btn" onclick="showPage('about')">Read More</a>
-        </div>
-        <!-- Video Gallery -->
-        <div class="video-gallery">
-            <h2>Our Legacy in Videos</h2>
-            <div class="video-grid">
-                <div class="video-card">
-                    <iframe src="https://www.youtube.com/embed/hqpR_iHEZkA" frameborder="0" allowfullscreen></iframe>
-                    <p> Tarana Darul Uloom Markaz e islami Ankleshwar (2021)</p>
-                </div>
-                <div class="video-card">
-                    <iframe src="https://www.youtube.com/embed/uvGLd6lm-d4" frameborder="0" allowfullscreen></iframe>
-                    <p>Taziyati Kalam Molana Musa Mankrod Rh (2020)</p>
-                </div>
-            </div>
-        </div>
+  <header>
+    <div class="header-content">
+      <h1>Masjid e Aaisha Qadeem</h1>
+      <p class="verse">"Indeed, the mosques of Allah are only to be maintained by those who believe in Allah and the Last Day..." (Qur'an 9:18)</p>
+      <div class="cta-buttons">
+        <a href="#prayer">Prayer Times</a>
+        <a href="#visit">Visit Us</a>
+        <a href="#footer">Contact</a>
+      </div>
     </div>
+  </header>
 
-    <!-- About Page -->
-    <div id="about" class="page">
-        <div class="about">
-            <h2>About Darul Uloom Markaz-e-Islami</h2>
-            <div class="content">
-                <h3>Introduction of Madressa</h3>
-                <p>Ankleshwar Markaz-e-Islami Trust, is one of the most celebrated Islamic institutes in Gujarat, India, catering and imparting Islamic Education to the Muslim students at no cost. The foundation stone of Darul Uloom Markaz-e-Islami was laid by two distinguished and remarkable personalities of their time i.e. Maulana Raza Ahmad Ajmeri (RA) and Hazrat Maulana Muinuddin Sahab (Khalifa Hazrat Shaikhul Hadith) in 1984 A.C. corresponding to 1405 A.H. Now while those charismatic persons have passed away, Darul Uloom is working under the able patronage of a renowned and well-known personality Hazrat Maulana Qamruzzaman Saheb Allahabadi. Al-hamdu Lillah, it is heading towards glorious success by spreading multiple faculties.</p>
-                <h3>Markaz-e-Islami</h3>
-                <p>Darul Uloom caters Alimyat Course (Graduation in Islamic Studies) to the students from Urdu grade to Final, Daurah-e-Hadith, on the pattern of the famous Islamic seminary Darul Uloom, Deoband and other eminent Islamic institutions in India adhering to Dars-e-Nizami with meager changes, sensing the need of time, such as introducing select computer programmes and English Language up to the fourth grade students of Arabic classes. There are 10 Hifz classes wherein about 225 students are guided to memorize the Glorious Qur’an under the strict supervision of expert teachers.</p>
-                <p>Markaz-e-Islami also opened a faculty in 2003 named “Markaz-e-Islami Education and Research Centre”, introducing a 2-years special English course. It aims to equip Madrasa Graduates (Ulama) with English Language and modern technology, like computer and internet, with the intention that they could find themselves capable to represent Islam and true teachings in proper way, in this modern world to the so-called modern educated people. It has been, so far, very successful and the faculty has produced seven batches comprising 98 Ulama and at present 47 Ulama are under training in first and final years. It is needless to mention here that it is part of the curriculum of the department for the students to join Tablighi Jam’aah once a year for forty days as a practical training.</p>
-                <p>One primary school, named ‘Markaz-e-Islami Priamary School’, is also run under the management of Darul Uloom Markaz-e-Islami recognized by Gujarat Government in the city, Ankleshwar. There are approximately 356 students admitted in different classes ranging from KG to 8th grade.</p>
-                <p>Al-Hamdu Lillah, Darul Uloom Markaz-e-Islami, so far, has produced 245 Ulama, 196 Qaris and 268 Hafize Quran and 75 Madrasa Graduates equipped with English language and modern tools. Darul Uloom Markaz-e-Islami, Ankleshwar, in the current year has enrolled 450 students in different sections. There are 33 teachers offering their yeomen services to the institution and 15 other attendants are at service in Darul Uloom Markaz-e-Islami.</p>
-                <p>It is a bird’s eye view of Darul Uloom Markaz-e-Islami and you are always welcome to visit us. May the institution stride ahead by leaps and bounds with your sincere prayer and cooperation! May accept the service of this noble institution!</p>
-            </div>
-        </div>
+  <section id="prayer" class="section">
+    <h2>Today's <span class="prayer-heading"><span onclick="showPrayerForm()">Prayer</span></span> Times</h2>
+    <div class="time-counter" id="istTime">Current IST Time: Calculating...</div>
+    <div class="prayer-container">
+      <div class="prayer-card" id="fajr">
+        <h3>Fajr</h3>
+        <p>Calculating...</p>
+      </div>
+      <div class="prayer-card" id="dhuhr">
+        <h3>Dhuhr</h3>
+        <p>Calculating...</p>
+      </div>
+      <div class="prayer-card" id="asr">
+        <h3>Asr</h3>
+        <p>Calculating...</p>
+      </div>
+      <div class="prayer-card" id="maghrib">
+        <h3>Maghrib</h3>
+        <p>Calculating...</p>
+      </div>
+      <div class="prayer-card" id="isha">
+        <h3>Isha</h3>
+        <p>Calculating...</p>
+      </div>
     </div>
-
-    <div id="admission" class="page">
-        <div class="admission">
-            <h2>Admission</h2>
-            <div class="rules">
-                <h3>Madrasa Admission Rules</h3>
-                <ul>
-                    <li>Eligibility: Applicants must be aged 10 or above with basic reading skills and a commitment to Islamic values.</li>
-                    <li>Dress Code: Students must wear traditional Islamic attire (kurta-pajama, topi) during classes and prayers.</li>
-                    <li>Attendance: 100% attendance is mandatory for all classes and daily prayers unless excused by the administration.</li>
-                    <li>Mobile Phones: Use of mobile phones is prohibited during classes and study hours to maintain focus.</li>
-                    <li>Conduct: Students must adhere to Islamic etiquette, respect teachers, and maintain discipline at all times.</li>
-                    <li>Residence: Residential students must follow hostel rules, including fixed meal and sleep schedules.</li>
-                </ul>
-            </div>
-            <form id="admissionForm" onsubmit="handleAdmission(event)">
-                <label for="applicantName">Applicant Name</label>
-                <input type="text" id="applicantName" name="applicantName" required placeholder="Enter full name">
-                <label for="age">Age</label>
-                <input type="number" id="age" name="age" min="10" required placeholder="Enter age">
-                <label for="course">Course</label>
-                <select id="course" name="course" required>
-                    <option value="" disabled selected>Select course</option>
-                    <option value="Hifz">Hifz-e-Quran</option>
-                    <option value="Alim">Alim Course</option>
-                    <option value="Tafseer">Tafseer</option>
-                    <option value="Arabic">Arabic Language</option>
-                </select>
-                <label for="education">Previous Education</label>
-                <textarea id="education" name="education" required placeholder="Briefly describe your educational background"></textarea>
-                <label for="contactNumber">Contact Number</label>
-                <input type="tel" id="contactNumber" name="contactNumber" required placeholder="Enter phone number">
-                <button type="submit">Submit Application</button>
-            </form>
-        </div>
+    <div class="prayer-form" id="prayerForm">
+      <h3>Update Prayer Times</h3>
+      <input type="password" id="password" placeholder="Enter password (e.g., masjid123)">
+      <input type="text" id="fajrTime" placeholder="Fajr (e.g., 4:15 AM)">
+      <input type="text" id="dhuhrTime" placeholder="Dhuhr (e.g., 1:00 PM)">
+      <input type="text" id="asrTime" placeholder="Asr (e.g., 5:15 PM)">
+      <input type="text" id="maghribTime" placeholder="Maghrib (e.g., 7:10 PM)">
+      <input type="text" id="ishaTime" placeholder="Isha (e.g., 8:30 PM)">
+      <button onclick="updateManualPrayerTimes()">Submit</button>
     </div>
+  </section>
 
-    <div id="courses" class="page">
-        <div class="courses">
-            <h2>Our Courses</h2>
-            <div class="course-grid">
-                <div class="course-card">
-                    <h3>Hifz-e-Quran</h3>
-                    <p>Memorization of the Quran with Tajweed and understanding.</p>
-                </div>
-                <div class="course-card">
-                    <h3>Alim Course</h3>
-                    <p>Comprehensive study of Islamic theology, Hadith, and Fiqh.</p>
-                </div>
-                <div class="course-card">
-                    <h3>Tafseer</h3>
-                    <p>In-depth exegesis of the Quran for advanced students.</p>
-                </div>
-                <div class="course-card">
-                    <h3>Arabic Language</h3>
-                    <p>Mastery of Arabic for Islamic studies and communication.</p>
-                </div>
-            </div>
-        </div>
+  <section id="visit" class="section">
+    <h2>Visit Us</h2>
+    <div class="info-card">
+      <p>Address: Hifazat Nagar, Rajpipla Road, Sarangpur, Ankleshwar, Bharuch, Gujarat – 393001</p>
     </div>
+  </section>
 
-    <div id="gallery" class="page">
-        <div class="gallery">
-            <h2>Our Gallery</h2>
-            <div class="gallery-grid">
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/img08.jpeg" alt="Masjid Exterior">
-                    <p>Masjid Exterior</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/staffQuarters.jpg" alt="Prayer Hall">
-                    <p>Prayer Hall</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/img04.jpeg" alt="Library">
-                    <p>Library</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/img06.jpeg" alt="Classroom">
-                    <p>Classroom</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/img04.jpeg" alt="Annual Gathering">
-                    <p>Annual Gathering</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/img02.jpeg" alt="Naat Event">
-                    <p>Naat Event</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/img05.jpeg" alt="Students">
-                    <p>Students</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/img07.jpeg" alt="Hostel">
-                    <p>Hostel</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/Intro.jpg" alt="Community Event">
-                    <p>Community Event</p>
-                </div>
-                <div class="gallery-card">
-                    <img src="https://markazeislami.com/wp-content/uploads/2024/08/Intro1.jpg" alt="Islamic Seminar">
-                    <p>Islamic Seminar</p>
-                </div>
-            </div>
-        </div>
+  <section id="about" class="section">
+    <h2>About the Masjid</h2>
+    <div class="info-card">
+      <p>Urdu: مسجد عائشہ قدیم حفاظت نگر انکلیشور</p>
+      <p>Established: 1984</p>
+      <p>Masjid e Aaisha Qadeem has served as a center for prayer, community gatherings, Islamic education, and local welfare since 1984. Located in the heart of Hifazat Nagar, it remains active under the guidance of a dedicated committee and Imam.</p>
     </div>
+  </section>
 
-    <div id="donation" class="page">
-        <div class="donation">
-            <h2>Donate</h2>
-            <div class="content">
-                <p>Darul Uloom Markaze Islami’s various charitable activities are financed by contributions given by generous people</p>
-                <p>Darul Uloom Markaze Islami accepts all sorts of contributions that are appropriate to its mission such as all sorts of donations, Zakat (Islamic alms), Waqf (trusts), Sadaqa, grants, gifts, and bequests made for its favor.</p>
-                <p>Darul Uloom Markaze Islami also accepts designated contributions for specific purposes such as: sponsoring orphans or a specific project such as building mosques, health clinic, drilling a well, and the like.</p>
-                <p>The money given to us in charity is used for the specific purpose in case the donor specifies the purpose such as building a mosque and Madrasah or digging the borehole or feeding the children etc. or else it will be used wherever it is most needed for the cause of Darul Uloom Markaze Islami if purpose not specified.</p>
-                <p>You can donate the Institute By below mentioned Bank Accounts</p>
-                <h3>For Indian Donors</h3>
-                <p>Bank Name: HDFC Bank<br>A/C Name: Ankleshwar Markaze Islami Trust<br>A/C No: 50200025755159<br>Branch: Ankleshwar Main Branch<br>IFSC Code: HDFC0000255</p>
-                <h3>For Foreign Donors</h3>
-                <p>Bank Name: State Bank of India<br>A/C Name: Ankleshwar Markaze Islami Trust<br>A/C No: 40371286931<br>IFSC Code: SBIN0000691</p>
-                <h3>UK Charitable Trust</h3>
-                <p>Bank Name: Barclays Bank<br>A/C Name: Ankleswar Markaz-E-Islami Trust<br>A/C No: 23189902<br>Sort Code: 20-33-83</p>
-            </div>
-        </div>
+  <section id="gallery" class="section">
+    <h2>Masjid Gallery</h2>
+    <div class="gallery-grid">
+      <img src="masjid1.jpg" alt="Masjid Exterior">
+      <img src="masjid2.jpg" alt="Prayer Hall">
+      <img src="masjid3.jpg" alt="Community Event">
+      <img src="masjid4.jpg" alt="Minaret View">
     </div>
+  </section>
 
-    <div id="contact" class="page">
-        <div class="contact">
-            <h2>Contact Us</h2>
-            <div class="contact-details">
-                <h3>Director Contact</h3>
-                <p class="english">Director: Mo. Iqbal Mavlana Moosa Mankrod<br>+91 90167 98718<br>darululoomank@hotmail.com, iqbalmankrod1962@gmail.com</p>
-                <p class="urdu">ڈائریکٹر: محمد اقبال مولانا موسیٰ منکروڈ<br>+91 90167 98718<br>darululoomank@hotmail.com, iqbalmankrod1962@gmail.com</p>
-                <p class="gujarati">ડિરેક્ટર: મો. ઇકબાલ મૌલાના મૂસા માંકરોડ<br>+91 90167 98718<br>darululoomank@hotmail.com, iqbalmankrod1962@gmail.com</p>
-            </div>
-            <form id="contactForm" onsubmit="handleContact(event)">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required placeholder="Enter your name">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required placeholder="Enter your email">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" required placeholder="Your message"></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </div>
+  <footer id="footer">
+    <p>Imam: Moulana Jarrar Sahab</p>
+    <p>President: Haji Iftikhar Sahab</p>
+    <p>Committee: Haji Irfan Sahab, Hafiz Abdul Aleem Sahab</p>
+    <p>Phone: <a href="tel:+919876543210">+91 98765 43210</a></p>
+    <p>Email: <a href="mailto:masjideaq@islamicorg.com">masjideaq@islamicorg.com</a></p>
+    <p>Developed by Saood for the sake of Allah ﷻ</p>
+  </footer>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>Ankleshwar Markaz-e-Islami Trust, P.O. Box No. 35, Surti Bhagol, Ankleshwar, Gujarat, India - 393 001</p>
-        <p>Email: darululoomank@hotmail.com | Phone: +91 90167 98718 | WhatsApp: +91 98765 43210</p>
-        <div class="social-links">
-            <a href="https://facebook.com/markazeislami" target="_blank">Facebook</a>
-            <a href="https://twitter.com/markazeislami" target="_blank">Twitter</a>
-            <a href="https://wa.me/919876543210" target="_blank">WhatsApp</a>
-            <a href="https://youtube.com/markazeislami" target="_blank">YouTube</a>
-        </div>
-        <p>© 2025 Ankleshwar Markaz-e-Islami Trust | Designed by Kifayat Shaikh Designer </p>
-        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-    </footer>
+  <script>
+    // Initial fallback prayer times
+    let prayerTimes = {
+      fajr: "4:15 AM",
+      dhuhr: "1:00 PM",
+      asr: "5:15 PM",
+      maghrib: "7:10 PM",
+      isha: "8:30 PM"
+    };
 
-    <script>
-        // Page Toggling
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.querySelectorAll('.header-nav a').forEach(link => {
-                link.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-            document.querySelector(`.header-nav a[onclick="showPage('${pageId}')"]`).classList.add('active');
-            window.scrollTo(0, 0);
+    // Password for manual updates (simple client-side, not secure for production)
+    const correctPassword = "masjid123"; // Change this to your desired password
+
+    // Function to format time to 12-hour with AM/PM
+    function formatTime(date) {
+      let hours = date.getHours();
+      let minutes = String(date.getMinutes()).padStart(2, '0');
+      let period = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12; // Convert 0 to 12 for 12-hour format
+      return `${hours}:${minutes} ${period}`;
+    }
+
+    // Function to update IST time counter
+    function updateISTTime() {
+      const now = new Date();
+      const istOffset = 5.5 * 60 * 60 * 1000; // 5 hours 30 minutes in milliseconds
+      const istTime = new Date(now.getTime() + istOffset);
+      const hours = String(istTime.getUTCHours()).padStart(2, '0');
+      const minutes = String(istTime.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(istTime.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('istTime').textContent = `Current IST Time: ${hours}:${minutes}:${seconds}`;
+    }
+
+    // Calculate prayer times using Adhan-JS
+    function calculatePrayerTimes(coords) {
+      const params = adhan.CalculationMethod.MuslimWorldLeague();
+      params.madhhab = adhan.Madhab.Hanafi; // Adjust for your region/preference
+      const date = new Date();
+      const prayer = new adhan.PrayerTimes(coords, date, params);
+      
+      // Update prayerTimes object
+      prayerTimes = {
+        fajr: formatTime(prayer.fajr),
+        dhuhr: formatTime(prayer.dhuhr),
+        asr: formatTime(prayer.asr),
+        maghrib: formatTime(prayer.maghrib),
+        isha: formatTime(prayer.isha)
+      };
+
+      // Update display
+      document.getElementById('fajr').querySelector('p').textContent = prayerTimes.fajr;
+      document.getElementById('dhuhr').querySelector('p').textContent = prayerTimes.dhuhr;
+      document.getElementById('asr').querySelector('p').textContent = prayerTimes.asr;
+      document.getElementById('maghrib').querySelector('p').textContent = prayerTimes.maghrib;
+      document.getElementById('isha').querySelector('p').textContent = prayerTimes.isha;
+    }
+
+    // Get user location and calculate prayer times
+    function updatePrayerTimes() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const coords = new adhan.Coordinates(position.coords.latitude, position.coords.longitude);
+            calculatePrayerTimes(coords);
+          },
+          error => {
+            console.log("Geolocation failed, using fallback for Ankleshwar: ", error);
+            // Fallback to Ankleshwar, Gujarat coordinates
+            const coords = new adhan.Coordinates(21.6264, 72.9972);
+            calculatePrayerTimes(coords);
+          }
+        );
+      } else {
+        console.log("Geolocation not supported, using fallback for Ankleshwar.");
+        // Fallback to Ankleshwar, Gujarat coordinates
+        const coords = new adhan.Coordinates(21.6264, 72.9972);
+        calculatePrayerTimes(coords);
+      }
+    }
+
+    // Show secret prayer time edit form on click
+    function showPrayerForm() {
+      const form = document.getElementById('prayerForm');
+      form.style.display = form.style.display === 'block' ? 'none' : 'block'; // Toggle visibility
+    }
+
+    // Manual update of prayer times with password
+    function updateManualPrayerTimes() {
+      const password = document.getElementById('password').value;
+      if (password !== correctPassword) {
+        alert("Incorrect password! Please try again.");
+        return;
+      }
+
+      const newTimes = {
+        fajr: document.getElementById('fajrTime').value || prayerTimes.fajr,
+        dhuhr: document.getElementById('dhuhrTime').value || prayerTimes.dhuhr,
+        asr: document.getElementById('asrTime').value || prayerTimes.asr,
+        maghrib: document.getElementById('maghribTime').value || prayerTimes.maghrib,
+        isha: document.getElementById('ishaTime').value || prayerTimes.isha
+      };
+
+      // Basic validation for time format (e.g., "4:15 AM")
+      const timeRegex = /^\d{1,2}:\d{2}\s(AM|PM)$/i;
+      for (const [prayer, time] of Object.entries(newTimes)) {
+        if (!timeRegex.test(time.trim())) {
+          alert(`Invalid time format for ${prayer}! Use e.g., "4:15 AM"`);
+          return;
         }
+      }
 
-        // Carousel functionality
-        let currentSlide = 0;
-        const slides = document.querySelector('.carousel');
-        const totalSlides = document.querySelectorAll('.carousel-slide').length;
+      // Update prayerTimes and display
+      prayerTimes = newTimes;
+      document.getElementById('fajr').querySelector('p').textContent = prayerTimes.fajr;
+      document.getElementById('dhuhr').querySelector('p').textContent = prayerTimes.dhuhr;
+      document.getElementById('asr').querySelector('p').textContent = prayerTimes.asr;
+      document.getElementById('maghrib').querySelector('p').textContent = prayerTimes.maghrib;
+      document.getElementById('isha').querySelector('p').textContent = prayerTimes.isha;
 
-        function moveCarousel(direction) {
-            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-            slides.style.transform = `translateX(-${currentSlide * 33.33}%)`;
-        }
+      // Clear form and hide it
+      document.getElementById('password').value = '';
+      document.getElementById('fajrTime').value = '';
+      document.getElementById('dhuhrTime').value = '';
+      document.getElementById('asrTime').value = '';
+      document.getElementById('maghribTime').value = '';
+      document.getElementById('ishaTime').value = '';
+      document.getElementById('prayerForm').style.display = 'none';
 
-        setInterval(() => moveCarousel(1), 5000);
+      alert("Prayer times updated successfully!");
+    }
 
-        // Admission form handler
-        function handleAdmission(event) {
-            event.preventDefault();
-            const applicantName = document.getElementById('applicantName').value;
-            const age = document.getElementById('age').value;
-            const course = document.getElementById('course').value;
-            const education = document.getElementById('education').value;
-            const contactNumber = document.getElementById('contactNumber').value;
+    // Smooth scroll for navigation
+    document.querySelectorAll('.cta-buttons a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        window.scrollTo({
+          top: targetElement.offsetTop - 20,
+          behavior: 'smooth'
+        });
+      });
+    });
 
-            if (!applicantName || !age || !course || !education || !contactNumber) {
-                alert('Please fill all fields.');
-                return;
-            }
+    // Update prayer times and IST counter on load
+    updatePrayerTimes();
+    updateISTTime();
 
-            alert(`Admission application from ${applicantName} for ${course}`);
-            document.getElementById('admissionForm').reset();
-        }
+    // Update IST counter every second
+    setInterval(updateISTTime, 1000);
 
-        // Contact form handler
-        function handleContact(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+    // Update prayer times every day at midnight
+    setInterval(() => {
+      const now = new Date();
+      if (now.getHours() === 0 && now.getMinutes() === 0) {
+        updatePrayerTimes();
+      }
+    }, 60 * 1000);
 
-            if (!name || !email || !message) {
-                alert('Please fill all fields.');
-                return;
-            }
-
-            alert(`Message from ${name} (${email}): ${message}`);
-            document.getElementById('contactForm').reset();
-        }
-
-        // PWA Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(reg => console.log('Service Worker registered'))
-                    .catch(err => console.log('Service Worker registration failed:', err));
-            });
-        }
-    </script>
+    console.log("Masjid e Aaisha Qadeem website loaded.");
+  </script>
 </body>
 </html>
