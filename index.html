@@ -7,12 +7,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #5C829A; /* Soft blue-gray */
-      --secondary: #D4C7A1; /* Warm beige */
-      --background: #FFFFFF; /* Crisp white */
-      --dark: #333333; /* Dark gray for text */
-      --light: #F8F8F8; /* Very light gray for cards */
-      --golden-ink: #D4C7A1; /* Warm beige for the logo */
+      --primary: #5C829A;
+      --secondary: #D4C7A1;
+      --background: #FFFFFF;
+      --dark: #333333;
+      --light: #F8F8F8;
+      --golden-ink: #D4C7A1;
     }
     * {
       margin: 0;
@@ -78,19 +78,19 @@
       left: 50%;
       transform: translate(-50%, -50%);
       font-family: 'Amiri', serif;
-      font-size: 3.5rem; /* Increased from 3rem */
+      font-size: 3.5rem;
       font-weight: 700;
-      color: #A9A9A9; /* Grayish color */
+      color: #A9A9A9;
       opacity: 0.4;
       text-align: center;
       white-space: normal;
       width: 95%;
       line-height: 1.1;
       z-index: 1;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Improve contrast */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
     .hero-content {
-      z-index: 2; /* Above both the overlay and the Ayatul Kursi text */
+      z-index: 2;
     }
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
@@ -161,7 +161,7 @@
       margin-bottom: 10px;
     }
     .prayer-card p {
-      font-size: 1.2rem;
+      font-size: 1rem; /* Adjusted for longer text */
       color: var(--dark);
       font-weight: 400;
     }
@@ -289,11 +289,11 @@
       .hero { height: 50vh; }
       .hero-content h1 { font-size: 2.5rem; }
       .hero-content p { font-size: 1rem; }
-      .hero::after { font-size: 2.5rem; } /* Increased from 2rem */
+      .hero::after { font-size: 2.5rem; }
       .section { padding: 40px 20px; }
       .section h2 { font-size: 2rem; }
       .prayer-card h3 { font-size: 1.3rem; }
-      .prayer-card p { font-size: 1rem; }
+      .prayer-card p { font-size: 0.9rem; }
       .gallery-grid img { height: 150px; }
     }
     @media (max-width: 480px) {
@@ -301,7 +301,7 @@
       .nav-links a { margin-left: 10px; font-size: 0.8rem; }
       .hero-content h1 { font-size: 2rem; }
       .hero-content p { font-size: 0.9rem; }
-      .hero::after { font-size: 1.8rem; } /* Increased from 1.5rem */
+      .hero::after { font-size: 1.8rem; }
       .section h2 { font-size: 1.8rem; }
     }
   </style>
@@ -317,63 +317,66 @@
       <a href="#footer">Contact</a>
     </div>
   </nav>
-
   <div class="hero">
+સ
     <div class="hero-content">
       <h1>Masjid e Aaisha Qadeem</h1>
       <p>"Indeed, the mosques of Allah are only to be maintained by those who believe in Allah and the Last Day..." (Qur'an 9:18)</p>
     </div>
   </div>
-
   <section id="prayer" class="section">
     <h2>Today's <span class="prayer-heading" onclick="showPrayerForm()">Prayer</span> Times</h2>
     <div class="time-counter" id="istTime">Current IST Time: Calculating...</div>
     <div class="prayer-container" id="prayerContainer">
       <div class="prayer-card" id="fajr">
         <h3>Fajr</h3>
-        <p>4:15 AM</p>
+        <p>Azan at 4:45 AM Namaz at 5:20 AM</p>
       </div>
       <div class="prayer-card" id="dhuhr">
         <h3>Dhuhr</h3>
-        <p>1:00 PM</p>
+        <p>Azan at 1:10 PM Namaz at 1:30 PM</p>
       </div>
       <div class="prayer-card" id="asr">
         <h3>Asr</h3>
-        <p>5:15 PM</p>
+        <p>Azan at 5:25 PM Namaz at 5:45 PM</p>
       </div>
       <div class="prayer-card" id="maghrib">
         <h3>Maghrib</h3>
-        <p>7:10 PM</p>
+        <p>Azan at 7:22 PM Namaz at 7:24 PM</p>
       </div>
       <div class="prayer-card" id="isha">
         <h3>Isha</h3>
-        <p>8:30 PM</p>
+        <p>Azan at 8:50 PM Namaz at 9:10 PM</p>
       </div>
       <div class="prayer-card" id="jumuah" style="display: none;">
         <h3>Jumu'ah</h3>
-        <p>1:30 PM</p>
+        <p>Azan at 12:50 PM Namaz at 1:30 PM</p>
       </div>
     </div>
     <div class="prayer-form" id="prayerForm">
       <h3>Update Prayer Times</h3>
       <input type="password" id="password" placeholder="Enter password (e.g., masjid123)">
-      <input type="text" id="fajrTime" placeholder="Fajr (e.g., 4:15 AM)">
-      <input type="text" id="dhuhrTime" placeholder="Dhuhr (e.g., 1:00 PM)">
-      <input type="text" id="asrTime" placeholder="Asr (e.g., 5:15 PM)">
-      <input type="text" id="maghribTime" placeholder="Maghrib (e.g., 7:10 PM)">
-      <input type="text" id="ishaTime" placeholder="Isha (e.g., 8:30 PM)">
-      <input type="text" id="jumuahTime" placeholder="Jumu'ah (e.g., 1:30 PM)">
+      <input type="text" id="fajrAzanTime" placeholder="Fajr Azan (e.g., 4:45 AM)">
+      <input type="text" id="fajrNamazTime" placeholder="Fajr Namaz (e.g., 5:20 AM)">
+      <input type="text" id="dhuhrAzanTime" placeholder="Dhuhr Azan (e.g., 1:10 PM)">
+      <input type="text" id="dhuhrNamazTime" placeholder="Dhuhr Namaz (e.g., 1:30 PM)">
+      <input type="text" id="asrAzanTime" placeholder="Asr Azan (e.g., 5:25 PM)">
+      <input type="text" id="asrNamazTime" placeholder="Asr Namaz (e.g., 5:45 PM)">
+      <input type="text" id="maghribAzanTime" placeholder="Maghrib Azan (e.g., 7:22 PM)">
+      <input type="text" id="maghribNamazTime" placeholder="Maghrib Namaz (e.g., 7:24 PM)">
+      <input type="text" id="ishaAzanTime" placeholder="Isha Azan (e.g., 8:50 PM)">
+      <input type="text" id="ishaNamazTime" placeholder="Isha Namaz (e.g., 9:10 PM)">
+      <input type="text" id="jumuahAzanTime" placeholder="Jumu'ah Azan (e.g., 12:50 PM)">
+      <input type="text" id="jumuahNamazTime" placeholder="Jumu'ah Namaz (e.g., 1:30 PM)">
       <button onclick="updateManualPrayerTimes()">Submit</button>
     </div>
   </section>
-
   <section id="visit" class="section">
     <h2>Visit Us</h2>
     <div class="info-card">
       <p>Address: Hifazat Nagar, Rajpipla Road, Sarangpur, Ankleshwar, Bharuch, Gujarat – 393001</p>
     </div>
   </section>
-
   <section id="about" class="section">
     <h2>About the Masjid</h2>
     <div class="info-card">
@@ -382,7 +385,6 @@
       <p>Masjid e Aaisha Qadeem has served as a center for prayer, community gatherings, Islamic education, and local welfare since 1984. Located in the heart of Hifazat Nagar, it remains active under the guidance of a dedicated committee and Imam.</p>
     </div>
   </section>
-
   <section id="gallery" class="section">
     <h2>Masjid Gallery</h2>
     <div class="gallery-grid">
@@ -392,7 +394,6 @@
       <img src="masjid4.jpg" alt="Minaret View">
     </div>
   </section>
-
   <footer id="footer">
     <p>Imam: Moulana Jarrar Sahab | President: Haji Iftikhar Sahab | Committee: Haji Irfan Sahab, Hafiz Abdul Aleem Sahab</p>
     <p>Phone: <a href="tel:+919876543210">+91 98765 43210</a> | Email: <a href="mailto:masjideaq@islamicorg.com">masjideaq@islamicorg.com</a></p>
@@ -403,16 +404,15 @@
       <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
     </div>
   </footer>
-
   <script>
     // Initial prayer times
     let prayerTimes = {
-      fajr: "Azan at 4:45 AM Namaz at 5:20 AM",
-      dhuhr: "Azan at 1:10 PM Namaz at 1:30 PM",
-      asr: "Azan at 5:25 PM Namaz at 5:45 PM",
-      maghrib: "Azan at 7:22 PM Namaz at 7:24 PM",
-      isha: "Azan at 8:50 PM Namaz at 9:10 PM",
-      jumuah: "Azan at 12:50 PM Namaz at 1:30 PM"
+      fajr: { azan: "4:45 AM", namaz: "5:20 AM" },
+      dhuhr: { azan: "1:10 PM", namaz: "1:30 PM" },
+      asr: { azan: "5:25 PM", namaz: "5:45 PM" },
+      maghrib: { azan: "7:22 PM", namaz: "7:24 PM" },
+      isha: { azan: "8:50 PM", namaz: "9:10 PM" },
+      jumuah: { azan: "12:50 PM", namaz: "1:30 PM" }
     };
 
     // Password for manual updates
@@ -434,7 +434,7 @@
       const today = new Date();
       const dayOfWeek = today.getDay(); // 0 = Sunday, 5 = Friday
       const jumuahCard = document.getElementById('jumuah');
-      if (dayOfWeek === 5) { // Friday
+      if (dayOfWeek === 5) {
         jumuahCard.style.display = 'block';
       } else {
         jumuahCard.style.display = 'none';
@@ -456,18 +456,36 @@
       }
 
       const newTimes = {
-        fajr: document.getElementById('fajrTime').value || prayerTimes.fajr,
-        dhuhr: document.getElementById('dhuhrTime').value || prayerTimes.dhuhr,
-        asr: document.getElementById('asrTime').value || prayerTimes.asr,
-        maghrib: document.getElementById('maghribTime').value || prayerTimes.maghrib,
-        isha: document.getElementById('ishaTime').value || prayerTimes.isha,
-        jumuah: document.getElementById('jumuahTime').value || prayerTimes.jumuah
+        fajr: {
+          azan: document.getElementById('fajrAzanTime').value || prayerTimes.fajr.azan,
+          namaz: document.getElementById('fajrNamazTime').value || prayerTimes.fajr.namaz
+        },
+        dhuhr: {
+          azan: document.getElementById('dhuhrAzanTime').value || prayerTimes.dhuhr.azan,
+          namaz: document.getElementById('dhuhrNamazTime').value || prayerTimes.dhuhr.namaz
+        },
+        asr: {
+          azan: document.getElementById('asrAzanTime').value || prayerTimes.asr.azan,
+          namaz: document.getElementById('asrNamazTime').value || prayerTimes.asr.namaz
+        },
+        maghrib: {
+          azan: document.getElementById('maghribAzanTime').value || prayerTimes.maghrib.azan,
+          namaz: document.getElementById('maghribNamazTime').value || prayerTimes.maghrib.namaz
+        },
+        isha: {
+          azan: document.getElementById('ishaAzanTime').value || prayerTimes.isha.azan,
+          namaz: document.getElementById('ishaNamazTime').value || prayerTimes.isha.namaz
+        },
+        jumuah: {
+          azan: document.getElementById('jumuahAzanTime').value || prayerTimes.jumuah.azan,
+          namaz: document.getElementById('jumuahNamazTime').value || prayerTimes.jumuah.namaz
+        }
       };
 
-      // Basic validation for time format (e.g., "4:15 AM")
+      // Time format validation (e.g., "4:15 AM")
       const timeRegex = /^\d{1,2}:\d{2}\s(AM|PM)$/i;
-      for (const [prayer, time] of Object.entries(newTimes)) {
-        if (!timeRegex.test(time.trim())) {
+      for (const [prayer, times] of Object.entries(newTimes)) {
+        if (!timeRegex.test(times.azan.trim()) || !timeRegex.test(times.namaz.trim())) {
           alert(`Invalid time format for ${prayer}! Use e.g., "4:15 AM"`);
           return;
         }
@@ -475,21 +493,27 @@
 
       // Update prayerTimes and display
       prayerTimes = newTimes;
-      document.getElementById('fajr').querySelector('p').textContent = prayerTimes.fajr;
-      document.getElementById('dhuhr').querySelector('p').textContent = prayerTimes.dhuhr;
-      document.getElementById('asr').querySelector('p').textContent = prayerTimes.asr;
-      document.getElementById('maghrib').querySelector('p').textContent = prayerTimes.maghrib;
-      document.getElementById('isha').querySelector('p').textContent = prayerTimes.isha;
-      document.getElementById('jumuah').querySelector('p').textContent = prayerTimes.jumuah;
+      document.getElementById('fajr').querySelector('p').textContent = `Azan at ${prayerTimes.fajr.azan} Namaz at ${prayerTimes.fajr.namaz}`;
+      document.getElementById('dhuhr').querySelector('p').textContent = `Azan at ${prayerTimes.dhuhr.azan} Namaz at ${prayerTimes.dhuhr.namaz}`;
+      document.getElementById('asr').querySelector('p').textContent = `Azan at ${prayerTimes.asr.azan} Namaz at ${prayerTimes.asr.namaz}`;
+      document.getElementById('maghrib').querySelector('p').textContent = `Azan at ${prayerTimes.maghrib.azan} Namaz at ${prayerTimes.maghrib.namaz}`;
+      document.getElementById('isha').querySelector('p').textContent = `Azan at ${prayerTimes.isha.azan} Namaz at ${prayerTimes.isha.namaz}`;
+      document.getElementById('jumuah').querySelector('p').textContent = `Azan at ${prayerTimes.jumuah.azan} Namaz at ${prayerTimes.jumuah.namaz}`;
 
       // Clear form and hide it
       document.getElementById('password').value = '';
-      document.getElementById('fajrTime').value = '';
-      document.getElementById('dhuhrTime').value = '';
-      document.getElementById('asrTime').value = '';
-      document.getElementById('maghribTime').value = '';
-      document.getElementById('ishaTime').value = '';
-      document.getElementById('jumuahTime').value = '';
+      document.getElementById('fajrAzanTime').value = '';
+      document.getElementById('fajrNamazTime').value = '';
+      document.getElementById('dhuhrAzanTime').value = '';
+      document.getElementById('dhuhrNamazTime').value = '';
+      document.getElementById('asrAzanTime').value = '';
+      document.getElementById('asrNamazTime').value = '';
+      document.getElementById('maghribAzanTime').value = '';
+      document.getElementById('maghribNamazTime').value = '';
+      document.getElementById('ishaAzanTime').value = '';
+      document.getElementById('ishaNamazTime').value = '';
+      document.getElementById('jumuahAzanTime').value = '';
+      document.getElementById('jumuahNamazTime').value = '';
       document.getElementById('prayerForm').style.display = 'none';
 
       alert("Prayer times updated successfully!");
